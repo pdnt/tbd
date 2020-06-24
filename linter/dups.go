@@ -1,0 +1,5 @@
+package linter
+
+func FindDups() {
+
+}

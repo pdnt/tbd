@@ -1,7 +1,9 @@
 package main
 
-import "fmt"
+import (
+	"tbd/linter"
+)
 
-func main()  {
-	fmt.Println("asd")
+func main() {
+	linter.Dups()
 }
