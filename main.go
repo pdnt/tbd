@@ -1,9 +1,9 @@
 package main
 
 import (
-	"tbd/linter"
+	"tbd/cmd"
 )
 
 func main() {
-	linter.FindDups("asdf. fruta, verdura,carne df")
+	cmd.Execute()
 }
