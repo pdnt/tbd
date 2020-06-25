@@ -18,7 +18,8 @@ var rootCmd = &cobra.Command{
 			contents, err := ioutil.ReadFile(filePath)
 
 			if err != nil {
-				fmt.Printf("there was an error opening %s", filePath)
+				fmt.Printf("there was an error opening the file '%s'\n", filePath)
+				fmt.Println(err.Error())
 				os.Exit(1)
 			}
 
