@@ -5,5 +5,5 @@ import (
 )
 
 func main() {
-	linter.Dups()
+	linter.FindDups("asdf. fruta, verdura,carne df")
 }
