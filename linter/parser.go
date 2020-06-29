@@ -20,6 +20,7 @@ func Parse(text string) []Token {
 		// if newline, increment line
 		if code == 10 {
 			line++
+			row = 0
 		}
 
 		if unicode.IsLetter(code) {
@@ -35,6 +36,7 @@ func Parse(text string) []Token {
 
 			tokens = append(tokens, *token)
 		}
+
 		row++
 	}
 
