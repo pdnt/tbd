@@ -23,7 +23,7 @@ func Parse(text string) []Token {
 			row = 0
 		}
 
-		if unicode.IsLetter(code) {
+		if unicode.IsLetter(code) || unicode.IsSymbol(code) || unicode.IsPunct(code) {
 			word = word + string(code)
 		}
 
