@@ -35,6 +35,7 @@ func Parse(text string) []Token {
 			}
 
 			tokens = append(tokens, *token)
+			word = ""
 		}
 
 		row++
