@@ -15,15 +15,15 @@ type Token struct {
 
 func Parse(text string) []Token {
 	tokens := []Token{}
-	line := 0
+	line := 1
 	word := ""
-	row := 0
+	row := 1
 
 	for _, code := range text {
 		// If newline, increment line and resets row value. Else increments row value.
 		if code == 10 {
 			line++
-			row = 0
+			row = 1
 		}
 		// If new letter, add letter to word.
 		if unicode.IsLetter(code) || unicode.IsSymbol(code) || unicode.IsPunct(code) {
