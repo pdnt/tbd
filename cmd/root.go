@@ -23,7 +23,9 @@ var rootCmd = &cobra.Command{
 				os.Exit(1)
 			}
 
-			linter.FindDups(string(contents))
+			dups := linter.FindDups(string(contents))
+			fmt.Println("====== Duplicates")
+			fmt.Println(dups)
 		}
 	},
 }

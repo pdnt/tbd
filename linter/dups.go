@@ -1,15 +1,16 @@
 package linter
 
-import "fmt"
+func FindDups(text string) []Token {
+	dups := []Token{}
+	parser := NewParser(text)
+	var previous Token
 
-func FindDups(text string) []string {
-	// wordFinderRegex := regexp.MustCompile(`\W+`)
-	// words := wordFinderRegex.Split(text, -1)
-	out := []string{}
-	fmt.Println(Parse(text))
-	// for _, word := range words {
-	// 	fmt.Printf("this is a word: %s\n", word)
-	// }
+	for _, token := range parser.Parse() {
+		if token.Word == previous.Word {
+			dups = append(dups, token)
+		}
+		previous = token
+	}
 
-	return out
+	return dups
 }
