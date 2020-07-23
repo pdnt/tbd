@@ -5,6 +5,7 @@ import (
 	"io/ioutil"
 	"os"
 	"tbd/linter"
+	"tbd/reporters"
 
 	"github.com/spf13/cobra"
 )
@@ -23,9 +24,8 @@ var rootCmd = &cobra.Command{
 				os.Exit(1)
 			}
 
-			dups := linter.FindDups(string(contents))
-			fmt.Println("====== Duplicates")
-			fmt.Println(dups)
+			parser := linter.NewParser(string(contents))
+			reporters.ReportCl(parser)
 		}
 	},
 }
