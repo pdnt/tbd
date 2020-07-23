@@ -1,15 +1,16 @@
 package linter
 
-func FindDups(text string) []Token {
+func FindDups(parser *Parser) []Token {
 	dups := []Token{}
-	parser := NewParser(text)
 	var previous Token
+	allWords := parser.Parse()
 
-	for _, token := range parser.Parse() {
-		if token.Word == previous.Word {
+	for _, token := range allWords {
+		if token.Value == previous.Value {
 			dups = append(dups, token)
 		}
 		previous = token
+
 	}
 
 	return dups
