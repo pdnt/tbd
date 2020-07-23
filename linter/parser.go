@@ -4,10 +4,16 @@ import (
 	"unicode"
 )
 
+const (
+	WordKind = iota
+	PunctuationKind
+)
+
 type Token struct {
-	Word string
-	Line int
-	Row  int
+	Value string
+	Line  int
+	Row   int
+	Kind  int
 }
 
 type Parser struct {
@@ -23,42 +29,48 @@ func NewParser(text string) *Parser {
 	return parser
 }
 
-func (p *Parser) AddToken(word string, line, row int) {
+func (p *Parser) AddToken(value string, line, row, kind int) {
 	token := &Token{
-		Word: word,
-		Line: line,
-		Row:  row - len(word),
+		Value: value,
+		Line:  line,
+		Row:   row - len(value),
+		Kind:  kind,
 	}
 
 	p.tokens = append(p.tokens, *token)
 }
 
 func (p *Parser) Parse() []Token {
+	value := ""
 	line := 1
-	word := ""
 	row := 0
 
 	for _, code := range p.text {
 		// If newline, increment line and resets row value. Else increments row value.
 		row++
 		if code == 10 {
-			p.AddToken(word, line, row)
+			p.AddToken(value, line, row, WordKind)
 			line++
 			row = 0
-			word = ""
+			value = ""
+			continue
+		}
+
+		if unicode.IsPunct(code) {
+			p.AddToken(string(code), line, row, PunctuationKind)
 			continue
 		}
 
 		// If new letter, add letter to word.
-		if unicode.IsLetter(code) || unicode.IsSymbol(code) || unicode.IsPunct(code) || unicode.IsNumber(code) {
-			word = word + string(code)
+		if unicode.IsLetter(code) || unicode.IsSymbol(code) || unicode.IsNumber(code) {
+			value = value + string(code)
 			continue
 		}
 
 		// If spacebreak, create token and allocate the word.
 		if unicode.IsSpace(code) {
-			p.AddToken(word, line, row)
-			word = ""
+			p.AddToken(value, line, row, WordKind)
+			value = ""
 			continue
 		}
 
