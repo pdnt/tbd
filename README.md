@@ -14,7 +14,8 @@ $ tbd *.md
 ### TODO
 
 - [ ] Add a `Reporter(fileName, text string, tokens []Token, w *io.Writer)` method, that takes a string of tokens and the text and pretty prints the result
-  - [ ] Add a `reporters` package, and add a default reporter `console.go` (use any name you want)
+  - [x] Add a `reporters` package, and add a default reporter `console.go` (use any name you want)
+  - [ ] Add ability to recognize repeated words with simbols between them
   - [ ] *LATER*: Call `Fprint(w)` instead of `fmt.Print()`
 - [ ] Add missing linters
   - [ ] linter.Weasels() []Token
