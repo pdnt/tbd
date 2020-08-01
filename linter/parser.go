@@ -7,6 +7,7 @@ import (
 const (
 	WordKind = iota
 	PunctuationKind
+	SpaceKind
 )
 
 type Token struct {
@@ -40,11 +41,20 @@ func (p *Parser) AddToken(value string, line, row, kind int) {
 	p.tokens = append(p.tokens, *token)
 }
 
-func (p *Parser) Parse() []Token {
+func (p *Parser) GetTokens() []Token {
+	if len(p.tokens) == 0 {
+		return p.parse()
+	}
+
+	return p.tokens
+}
+
+func (p *Parser) parse() []Token {
 	value := ""
 	line := 1
 	row := 0
 
+	// you,
 	for _, code := range p.text {
 		// If newline, increment line and resets row value. Else increments row value.
 		row++
@@ -57,7 +67,14 @@ func (p *Parser) Parse() []Token {
 		}
 
 		if unicode.IsPunct(code) {
-			p.AddToken(string(code), line, row, PunctuationKind)
+			if value != "" {
+				// First, add the word
+				p.AddToken(value, line, row, WordKind)
+			}
+
+			// Then add the punctuation sign
+			p.AddToken(string(code), line, row+1, PunctuationKind)
+			value = ""
 			continue
 		}
 
@@ -69,7 +86,12 @@ func (p *Parser) Parse() []Token {
 
 		// If spacebreak, create token and allocate the word.
 		if unicode.IsSpace(code) {
-			p.AddToken(value, line, row, WordKind)
+			// ho lahola
+			if value != "" {
+				p.AddToken(value, line, row, WordKind)
+			}
+
+			p.AddToken(string(code), line, row+1, SpaceKind)
 			value = ""
 			continue
 		}

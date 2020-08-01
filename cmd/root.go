@@ -25,7 +25,7 @@ var rootCmd = &cobra.Command{
 			}
 
 			parser := linter.NewParser(string(contents))
-			reporters.ReportCl(parser)
+			reporters.ReportStdout(parser, filePath)
 		}
 	},
 }
