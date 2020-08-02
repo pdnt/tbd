@@ -2,21 +2,20 @@ package linter
 
 // FindDups finds duplicate tokens
 func FindDups(parser *Parser) []Token {
-	var previous, beforePunctuation Token
-	allWords := parser.GetTokens()
-	dups := []Token{}
+	var previous Token
+	var duplicates []Token
 
-	for _, token := range allWords {
-		if token.Value == previous.Value && token.Row != 1 || previous.Kind == PunctuationKind && beforePunctuation.Value == token.Value && token.Kind != SpaceKind {
-			dups = append(dups, token)
+	for _, token := range parser.GetTokens() {
+		if token.Kind == SpaceKind {
+			continue
 		}
 
-		if token.Kind == PunctuationKind && previous.Kind != PunctuationKind {
-			beforePunctuation = previous
+		if previous.Value == token.Value && token.Row != 1 {
+			duplicates = append(duplicates, token)
 		}
 
 		previous = token
 	}
 
-	return dups
+	return duplicates
 }
