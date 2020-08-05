@@ -6,6 +6,7 @@ import (
 	"tbd/linter"
 )
 
+// getLineForToken returns the line where the duplicate word is located.
 func getLineForToken(allWords *[]linter.Token, duplicate *linter.Token) string {
 	result := ""
 
@@ -18,6 +19,7 @@ func getLineForToken(allWords *[]linter.Token, duplicate *linter.Token) string {
 	return result
 }
 
+// getCarrot returns a carrot ^ below the duplicate word
 func getCarrot(duplicate *linter.Token) string {
 	return strings.Repeat(" ", duplicate.Row-1) + "^"
 }
@@ -31,4 +33,6 @@ func ReportStdout(parser *linter.Parser, filePath string) {
 		fmt.Println(getLineForToken(&allWords, &duplicate))
 		fmt.Println(getCarrot(&duplicate))
 	}
+	weasels := linter.FindWeasel(parser)
+	fmt.Println(weasels)
 }
