@@ -21,12 +21,14 @@ $ tbd *.md
   - [ ] Print whitespaced formatted when it's repeated (otherwise the user just sees nothing)
   - [ ] Limit the surroundings of a word
 - [ ] Add missing linters
-  - [ ] linter.Weasels() []Token
+  - [x] linter.Weasels() []Token
   - [ ] linter.Passive() []Token
 - [ ] Define CLI API
   - [ ] Option to choose what parsers to use (runs all by default)
   - [ ] Option to ignore whitespace repetition (example: multiple space bars)
 - [ ] Add a JSON reporter
+- [ ] Bugs
+  - [ ] last word is not parsed
 
 ```
 Duplicated word in file **filePath* [Line:x , Row:y]:
