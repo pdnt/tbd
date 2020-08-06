@@ -10,7 +10,7 @@ func FindDups(parser *Parser) []Token {
 			continue
 		}
 
-		if previous.Value == token.Value && token.Row != 1 {
+		if token.Equals(previous) {
 			duplicates = append(duplicates, token)
 		}
 

@@ -1,6 +1,7 @@
 package linter
 
 import (
+	"strings"
 	"unicode"
 )
 
@@ -15,6 +16,16 @@ type Token struct {
 	Line  int
 	Row   int
 	Kind  int
+}
+
+// Equals compares two tokens and returns `true` if they are semantically equal.
+func (t *Token) Equals(token Token) bool {
+	return t.ValueEquals(token.Value) && t.Line == token.Line
+}
+
+// ValueEquals compares a given value with the Value property of the token and returns `true` if they are equal.
+func (t *Token) ValueEquals(value string) bool {
+	return strings.ToLower(t.Value) == strings.ToLower(value)
 }
 
 type Parser struct {
