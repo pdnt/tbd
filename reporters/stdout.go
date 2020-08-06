@@ -24,15 +24,27 @@ func getCarrot(duplicate *linter.Token) string {
 	return strings.Repeat(" ", duplicate.Row-1) + "^"
 }
 
+func reportPrint(tokens, allWords []linter.Token, linter, filePath string) {
+	for _, token := range tokens {
+		fmt.Printf("%v word in file %s [Line:%v , Row:%v] \n", linter, filePath, token.Line, token.Row)
+		fmt.Println(getLineForToken(&allWords, &token))
+		fmt.Println(getCarrot(&token))
+	}
+}
+
+type Report struct {
+	Name   string
+	Tokens []linter.Token
+}
+
 func ReportStdout(parser *linter.Parser, filePath string) {
 	allWords := parser.GetTokens()
-	duplicates := linter.FindDups(parser)
-
-	for _, duplicate := range duplicates {
-		fmt.Printf("Duplicated word in file %s [Line:%v , Row:%v] \n", filePath, duplicate.Line, duplicate.Row)
-		fmt.Println(getLineForToken(&allWords, &duplicate))
-		fmt.Println(getCarrot(&duplicate))
+	reports := []Report{
+		{Name: "Duplicate", Tokens: linter.FindDups(parser)},
+		{Name: "Weasel", Tokens: linter.FindWeasel(parser)},
 	}
-	weasels := linter.FindWeasel(parser)
-	fmt.Println(weasels)
+
+	for _, report := range reports {
+		reportPrint(report.Tokens, allWords, report.Name, filePath)
+	}
 }
