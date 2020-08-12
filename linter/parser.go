@@ -65,7 +65,6 @@ func (p *Parser) parse() []Token {
 	line := 1
 	row := 0
 
-	// you,
 	for _, code := range p.text {
 		// If newline, increment line and resets row value. Else increments row value.
 		row++
@@ -97,7 +96,6 @@ func (p *Parser) parse() []Token {
 
 		// If spacebreak, create token and allocate the word.
 		if unicode.IsSpace(code) {
-			// ho lahola
 			if value != "" {
 				p.AddToken(value, line, row, WordKind)
 			}
@@ -106,8 +104,9 @@ func (p *Parser) parse() []Token {
 			value = ""
 			continue
 		}
-
 	}
+
+	p.AddToken(value, line, row+1, WordKind)
 
 	return p.tokens
 }
