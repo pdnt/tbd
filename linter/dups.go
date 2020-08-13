@@ -4,9 +4,14 @@ package linter
 func FindDups(parser *Parser) []Token {
 	var previous Token
 	duplicates := []Token{}
+	allTokens := parser.GetTokens()
 
-	for _, token := range parser.GetTokens() {
+	for i, token := range allTokens {
 		if token.Kind == SpaceKind {
+			if i > 1 && token.Equals(allTokens[i-1]) {
+				duplicates = append(duplicates, token)
+			}
+
 			continue
 		}
 

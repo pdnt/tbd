@@ -18,8 +18,9 @@ $ tbd *.md
   - [x] Add ability to recognize repeated words with simbols between them
   - [ ] Call `Fprint(w)` instead of `fmt.Print()`
   - [x] Refactor Reporter to report any kind of token
-  - [ ] Print whitespaced formatted when it's repeated (otherwise the user just sees nothing)
+  - [x] Print whitespaced formatted when it's repeated (otherwise the user just sees nothing)
   - [ ] Limit the surroundings of a word
+  - [ ] Add formatting (bold, italics, etc)
 - [ ] Add missing linters
   - [x] linter.Weasels() []Token
   - [ ] linter.Passive() []Token
