@@ -12,8 +12,13 @@ func getLineForToken(allWords *[]linter.Token, duplicate *linter.Token) string {
 
 	for _, token := range *allWords {
 		if token.Line == duplicate.Line {
-			result += token.Value
+			if token.Kind == linter.SpaceKind && token.Row == duplicate.Row {
+				result += "•"
+			} else {
+				result += token.Value
+			}
 		}
+
 	}
 
 	return result
