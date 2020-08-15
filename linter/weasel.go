@@ -1,20 +1,15 @@
 package linter
 
-import (
-	"strings"
-)
-
+// FindWeasel find weasel tokens
 func FindWeasel(parser *Parser) []Token {
-	allWeasels := map[string]bool{"many": true, "various": true, "very": true, "fairly": true, "several": true, "extremely": true, "exceedingly": true, "quite": true, "remarkably": true, "few": true, "surprisingly": true, "mostly": true, "largely": true, "huge": true, "tiny": true /*"((are","is)"a"number)"*/, "excellent": true, "interestingly": true, "significantly": true, "substantially": true, "clearly": true, "vast": true, "relatively": true, "completely": true}
 	weasels := []Token{}
 	allTokens := parser.GetTokens()
 	allTokensLen := len(allTokens)
 
 	for i, token := range allTokens {
-		isInWeasels, _ := allWeasels[strings.ToLower(token.Value)]
-
-		if isInWeasels {
+		if WeaselWords.Has(&token) {
 			weasels = append(weasels, token)
+			continue
 		}
 
 		if (token.ValueEquals("is") || token.ValueEquals("are")) && i+4 < allTokensLen {
