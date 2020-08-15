@@ -47,6 +47,7 @@ func ReportStdout(parser *linter.Parser, filePath string) {
 	reports := []Report{
 		{Name: "Duplicate", Tokens: linter.FindDups(parser)},
 		{Name: "Weasel", Tokens: linter.FindWeasel(parser)},
+		{Name: "Passive", Tokens: linter.FindPassive(parser)},
 	}
 
 	for _, report := range reports {
