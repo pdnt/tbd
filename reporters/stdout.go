@@ -6,13 +6,13 @@ import (
 	"tbd/linter"
 )
 
-// getLineForToken returns the line where the duplicate word is located.
-func getLineForToken(allWords *[]linter.Token, duplicate *linter.Token) string {
+// getLineForToken returns the line where the reference token is located.
+func getLineForToken(allWords *[]linter.Token, referenceToken *linter.Token) string {
 	result := ""
 
 	for _, token := range *allWords {
-		if token.Line == duplicate.Line {
-			if token.Kind == linter.SpaceKind && token.Row == duplicate.Row {
+		if token.Line == referenceToken.Line {
+			if token.Kind == linter.SpaceKind && token.Row == referenceToken.Row {
 				result += "•"
 			} else {
 				result += token.Value
@@ -38,19 +38,16 @@ func reportPrint(tokens, allWords []linter.Token, linter, filePath string) {
 }
 
 type Report struct {
-	Name   string
-	Tokens []linter.Token
+	Name    string
+	Tokens  []linter.Token
+	Enabled bool
 }
 
-func ReportStdout(parser *linter.Parser, filePath string) {
-	allWords := parser.GetTokens()
-	reports := []Report{
-		{Name: "Duplicate", Tokens: linter.FindDups(parser)},
-		{Name: "Weasel", Tokens: linter.FindWeasel(parser)},
-		{Name: "Passive", Tokens: linter.FindPassive(parser)},
-	}
+func ReportStdout(reports []Report, allWords []linter.Token, filePath string) {
 
 	for _, report := range reports {
-		reportPrint(report.Tokens, allWords, report.Name, filePath)
+		if report.Enabled {
+			reportPrint(report.Tokens, allWords, report.Name, filePath)
+		}
 	}
 }

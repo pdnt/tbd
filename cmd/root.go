@@ -24,10 +24,38 @@ var rootCmd = &cobra.Command{
 				os.Exit(1)
 			}
 
+			if !ReportDuplicates && !ReportWeasel && !ReportPassive {
+				ReportDuplicates = true
+				ReportWeasel = true
+				ReportPassive = true
+			}
+
 			parser := linter.NewParser(string(contents))
-			reporters.ReportStdout(parser, filePath)
+			allWords := parser.GetTokens()
+			reports := []reporters.Report{
+				{Name: "Duplicate", Tokens: linter.FindDups(parser), Enabled: ReportDuplicates},
+				{Name: "Weasel", Tokens: linter.FindWeasel(parser), Enabled: ReportWeasel},
+				{Name: "Passive", Tokens: linter.FindPassive(parser), Enabled: ReportPassive},
+			}
+			reporters.ReportStdout(reports, allWords, filePath)
 		}
 	},
+}
+
+// ReportDuplicates indicates wheter we should report duplicates or not.
+var ReportDuplicates bool
+
+// ReportPassive indicates wheter we should report duplicates or not.
+var ReportPassive bool
+
+// ReportWeasel indicates wheter we should report duplicates or not.
+var ReportWeasel bool
+
+// SetUpFlags sets the CLI usage for the user.
+func SetUpFlags() {
+	rootCmd.Flags().BoolVarP(&ReportPassive, "passive", "p", false, "Run passives")
+	rootCmd.Flags().BoolVarP(&ReportWeasel, "weasel", "w", false, "Run weasels")
+	rootCmd.Flags().BoolVarP(&ReportDuplicates, "duplicate", "d", false, "Run duplicates")
 }
 
 // Execute is the entry point for the command line interface

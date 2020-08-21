@@ -21,15 +21,32 @@ $ tbd *.md
   - [x] Print whitespaced formatted when it's repeated (otherwise the user just sees nothing)
   - [ ] Limit the surroundings of a word
   - [ ] Add formatting (bold, italics, etc)
-- [ ] Add missing linters
+- [x] Add missing linters
   - [x] linter.Weasels() []Token
-  - [ ] linter.Passive() []Token
+  - [x] linter.Passive() []Token
 - [ ] Define CLI API
-  - [ ] Option to choose what parsers to use (runs all by default)
+  - [x] Option to choose what parsers to use (runs all by default)
   - [ ] Option to ignore whitespace repetition (example: multiple space bars)
 - [ ] Add a JSON reporter
 - [ ] Bugs
   - [x] last word is not parsed
+
+
+```bash
+# Runs all linters
+$ tbd README.md
+
+# Runs passive
+$ tbd --linters=passive README.md
+# Runs passive and weasels
+$ tbd --linters=passive,weasel README.md
+
+===================================================
+
+$ tbd README.md
+$ tbd --passive --weasel README.md
+$ tbd -p -w README.md
+```
 
 ```
 Duplicated word in file **filePath* [Line:x , Row:y]:
