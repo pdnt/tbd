@@ -16,6 +16,11 @@ type Token struct {
 	Line  int
 	Row   int
 	Kind  int
+	Index int
+}
+
+func (t *Token) DeepEquals(token Token) bool {
+	return t.Equals(token) && t.Row == token.Row
 }
 
 // Equals compares two tokens and returns `true` if they are semantically equal.
@@ -47,6 +52,7 @@ func (p *Parser) AddToken(value string, line, row, kind int) {
 		Line:  line,
 		Row:   row - len(value),
 		Kind:  kind,
+		Index: len(p.tokens) - 1,
 	}
 
 	p.tokens = append(p.tokens, *token)
