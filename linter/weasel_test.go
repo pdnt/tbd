@@ -11,9 +11,9 @@ func TestWeasel(t *testing.T) {
 		input string
 		want  []Token
 	}{
-		"simple":     {input: "clearly this contains a weasel", want: []Token{{Value: "clearly", Line: 1, Row: 1}}},
-		"are number": {input: "there are a number of tests", want: []Token{{Value: "are", Line: 1, Row: 7}}},
-		"is number":  {input: "There is a number of test", want: []Token{{Value: "is", Line: 1, Row: 7}}},
+		"simple":     {input: "clearly this contains a weasel", want: []Token{{Value: "clearly", Line: 1, Row: 1, Index: -1}}},
+		"are number": {input: "there are a number of tests", want: []Token{{Value: "are", Line: 1, Row: 7, Index: 1}}},
+		"is number":  {input: "There is a number of test", want: []Token{{Value: "is", Line: 1, Row: 7, Index: 1}}},
 	}
 
 	for name, tc := range tests {

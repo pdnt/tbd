@@ -11,9 +11,9 @@ func TestFindDups(t *testing.T) {
 		input string
 		want  []Token
 	}{
-		"simple":      {input: "this contains a dup dup word", want: []Token{{Value: "dup", Line: 1, Row: 21}}},
-		"punctuation": {input: "this contains,, duplicate punct", want: []Token{{Value: ",", Line: 1, Row: 15, Kind: PunctuationKind}}},
-		"spaces":      {input: "this contains  duplicate spaces", want: []Token{{Value: " ", Line: 1, Row: 15, Kind: SpaceKind}}},
+		"simple":      {input: "this contains a dup dup word", want: []Token{{Value: "dup", Line: 1, Row: 21, Index: 7}}},
+		"punctuation": {input: "this contains,, duplicate punct", want: []Token{{Value: ",", Line: 1, Row: 15, Kind: PunctuationKind, Index: 3}}},
+		"spaces":      {input: "this contains  duplicate spaces", want: []Token{{Value: " ", Line: 1, Row: 15, Kind: SpaceKind, Index: 3}}},
 		"newline":     {input: "words after newline\nnewline are not dups", want: []Token{}},
 	}
 

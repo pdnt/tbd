@@ -14,12 +14,12 @@ func TestParser(t *testing.T) {
 		"simple": {
 			input: "word another, last",
 			want: []Token{
-				{Value: "word", Line: 1, Row: 1},
-				{Value: " ", Line: 1, Row: 5, Kind: SpaceKind},
-				{Value: "another", Line: 1, Row: 6},
-				{Value: ",", Line: 1, Row: 13, Kind: PunctuationKind},
-				{Value: " ", Line: 1, Row: 14, Kind: SpaceKind},
-				{Value: "last", Line: 1, Row: 15},
+				{Value: "word", Line: 1, Row: 1, Index: -1},
+				{Value: " ", Line: 1, Row: 5, Kind: SpaceKind, Index: 0},
+				{Value: "another", Line: 1, Row: 6, Index: 1},
+				{Value: ",", Line: 1, Row: 13, Kind: PunctuationKind, Index: 2},
+				{Value: " ", Line: 1, Row: 14, Kind: SpaceKind, Index: 3},
+				{Value: "last", Line: 1, Row: 15, Index: 4},
 			},
 		},
 	}
