@@ -1,61 +1,35 @@
 ## TBD
 
-Linter for common mistakes in writing, work in progress.
+TBD allows you to find and fix common mistakes in writing.
 
-Usage `tbd <file|glob>` (for now). Examples:
+Usage `tbd <file|glob>`. Examples:
 
 ```bash
 # lint README.md file
-$ tbd README.md
+tbd README.md
+
 # lint all md files in the current directory
-$ tbd *.md
+tbd *.md
 ```
 
-### TODO
-
-- [x] Add a `Reporter(fileName, text string, tokens []Token, w *io.Writer)` method, that takes a string of tokens and the text and pretty prints the result
-  - [x] Add a `reporters` package, and add a default reporter `console.go` (use any name you want)
-  - [x] Add ability to recognize repeated words with simbols between them
-  - [ ] Call `Fprint(w)` instead of `fmt.Print()`
-  - [x] Refactor Reporter to report any kind of token
-  - [x] Print whitespaced formatted when it's repeated (otherwise the user just sees nothing)
-  - [ ] Limit the surroundings of a word
-  - [ ] Add formatting (bold, italics, etc)
-- [x] Add missing linters
-  - [x] linter.Weasels() []Token
-  - [x] linter.Passive() []Token
-- [ ] Define CLI API
-  - [x] Option to choose what parsers to use (runs all by default)
-  - [ ] Option to ignore whitespace repetition (example: multiple space bars)
-- [ ] Add a JSON reporter
-- [ ] Bugs
-  - [x] last word is not parsed
-
+`tbd` comes with a built-in set of [linters](#linters), and by default it will run all the available linters. You can modify this behavior by explicitly providing the set of linters you'd like to run via flags, for example:
 
 ```bash
-# Runs all linters
-$ tbd README.md
+# search only for duplicates
+tbd -duplicates *.md
 
-# Runs passive
-$ tbd --linters=passive README.md
-# Runs passive and weasels
-$ tbd --linters=passive,weasel README.md
-
-===================================================
-
-$ tbd README.md
-$ tbd --passive --weasel README.md
-$ tbd -p -w README.md
+# search for passive voice and weasels
+tbd -passive -weasels *md
 ```
 
-```
-Duplicated word in file **filePath* [Line:x , Row:y]:
+### Linters
 
-ccccc *ccccc* ccccc ccccc ccccc
-      ^
+- **Weasels** (-weasels, `-w`)
+- **Duplicates** (`-duplicates`, `-d`)
+- **Passive voice** (`-passive`, `-p`)
 
-Duplicated word in file **filePath* [Line:x , Row:y]:
+### Install
 
-ccccc ccccc *ccccc* ccccc ccccc
-             ^
-```
+Download the appropriate version for your platform from [releases](/releases) Once downloaded, the binary can be run from anywhere.
+
+Ideally, you should install it somewhere in your `PATH` for easy use. `/usr/local/bin` is the most probable location.
