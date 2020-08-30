@@ -24,12 +24,12 @@ tbd -passive -weasels *md
 
 ### Linters
 
-- **Weasels** (-weasels, `-w`)
-- **Duplicates** (`-duplicates`, `-d`)
-- **Passive voice** (`-passive`, `-p`)
+- **Weasels** (`-weasels`, `-w`), finds [Weasel Words](https://en.wikipedia.org/wiki/Weasel_word)
+- **Duplicates** (`-duplicates`, `-d`), finds unintentional word repetitions.
+- **Passive voice** (`-passive`, `-p`), finds usage of [Passive Voice](https://en.wikipedia.org/wiki/Passive_voice)
 
 ### Install
 
-Download the appropriate version for your platform from [releases](/releases) Once downloaded, the binary can be run from anywhere.
+Download the appropriate version for your platform from [releases](https://github.com/pdnt/tbd/releases/) Once downloaded, the binary can be run from anywhere.
 
 Ideally, you should install it somewhere in your `PATH` for easy use. `/usr/local/bin` is the most probable location.
