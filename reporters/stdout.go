@@ -38,6 +38,9 @@ func getLineForToken(surroundingWords *[]linter.Token, referenceToken *linter.To
 		if token.Line == referenceToken.Line {
 			if token.Kind == linter.SpaceKind && token.Row == referenceToken.Row {
 				result += "•"
+			} else if token.DeepEquals(*referenceToken) {
+				var boldValue = Colorize(Bold, token.Value)
+				result += Colorize(Red, boldValue)
 			} else {
 				result += token.Value
 			}
@@ -57,14 +60,15 @@ func getCarrot(surroundingWords *[]linter.Token, referenceToken *linter.Token) s
 
 		carrot += strings.Repeat(" ", len(token.Value))
 	}
-
-	return carrot + "^"
+	carrot = Colorize(Bold, carrot+"^")
+	return Colorize(Red, carrot)
 }
 
 func reportPrint(tokens, allWords []linter.Token, linter, filePath string) {
+	fmt.Printf(Colorize(Reverse, fmt.Sprintf("            %vs            \n", linter)) + "\n")
 	for _, token := range tokens {
 		surroundingWords := reduceToLine(&allWords, &token)
-		fmt.Printf("%v word in file %s [Line:%v , Row:%v] \n", linter, filePath, token.Line, token.Row)
+		fmt.Printf("File %s [line:%v , col:%v] \n", filePath, token.Line, token.Row)
 		fmt.Println(getLineForToken(surroundingWords, &token))
 		fmt.Println(getCarrot(surroundingWords, &token))
 	}
