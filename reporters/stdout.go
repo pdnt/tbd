@@ -83,7 +83,7 @@ type Report struct {
 func ReportStdout(reports []Report, allWords []linter.Token, filePath string) {
 
 	for _, report := range reports {
-		if report.Enabled {
+		if report.Enabled && len(report.Tokens) > 0 {
 			reportPrint(report.Tokens, allWords, report.Name, filePath)
 		}
 	}
