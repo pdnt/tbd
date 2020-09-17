@@ -33,7 +33,7 @@ var rootCmd = &cobra.Command{
 			parser := linter.NewParser(string(contents))
 			allWords := parser.GetTokens()
 			reports := []reporters.Report{
-				{Name: "Duplicate", Tokens: linter.FindDups(parser), Enabled: ReportDuplicates},
+				{Name: "Duplicate", Tokens: linter.FindDups(parser, IncludeWhitespace, IncludePunctuation), Enabled: ReportDuplicates},
 				{Name: "Weasel", Tokens: linter.FindWeasel(parser), Enabled: ReportWeasel},
 				{Name: "Passive", Tokens: linter.FindPassive(parser), Enabled: ReportPassive},
 			}
@@ -45,17 +45,25 @@ var rootCmd = &cobra.Command{
 // ReportDuplicates indicates wheter we should report duplicates or not.
 var ReportDuplicates bool
 
-// ReportPassive indicates wheter we should report duplicates or not.
+// ReportPassive indicates wheter we should report passives or not.
 var ReportPassive bool
 
-// ReportWeasel indicates wheter we should report duplicates or not.
+// ReportWeasel indicates wheter we should report weasels or not.
 var ReportWeasel bool
+
+// IncludeWhitespace indicates wheter we should include white spaces in duplicates.
+var IncludeWhitespace bool
+
+// IncludePunctuation indicates wheter we should consider tokens with punctuation values.
+var IncludePunctuation bool
 
 // SetUpFlags sets the CLI usage for the user.
 func SetUpFlags() {
 	rootCmd.Flags().BoolVarP(&ReportPassive, "passive", "p", false, "Run passives")
 	rootCmd.Flags().BoolVarP(&ReportWeasel, "weasel", "w", false, "Run weasels")
 	rootCmd.Flags().BoolVarP(&ReportDuplicates, "duplicate", "d", false, "Run duplicates")
+	rootCmd.Flags().BoolVar(&IncludePunctuation, "include-punctuation", false, "Include punctuation")
+	rootCmd.Flags().BoolVar(&IncludeWhitespace, "include-whitespace", false, "Include whitespace")
 }
 
 // Execute is the entry point for the command line interface
