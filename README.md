@@ -28,6 +28,13 @@ tbd -passive -weasels *md
 - **Duplicates** (`-duplicates`, `-d`), finds unintentional word repetitions.
 - **Passive voice** (`-passive`, `-p`), finds usage of [Passive Voice](https://en.wikipedia.org/wiki/Passive_voice)
 
+### Special characters
+
+You can also include special characters in the linting with:
+
+- **Withespace** via the `--include-whitespace` flag
+- **Punctuation** via the `--include-punctuation` flag
+
 ### Install
 
 Download the appropriate version for your platform from [releases](https://github.com/pdnt/tbd/releases/) Once downloaded, the binary can be run from anywhere.
