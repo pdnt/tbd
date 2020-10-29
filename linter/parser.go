@@ -9,6 +9,7 @@ const (
 	WordKind = iota
 	PunctuationKind
 	SpaceKind
+	NumberKind
 )
 
 type Token struct {
