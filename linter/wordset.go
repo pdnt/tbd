@@ -1,6 +1,10 @@
 package linter
 
-import "strings"
+import (
+	"io/ioutil"
+	"log"
+	"strings"
+)
 
 // WordSet describes a set of words
 type WordSet map[string]bool
@@ -22,6 +26,20 @@ func (w WordSet) Has(t *Token) bool {
 	return has
 }
 
+// loadDictionary
+func loadDictionary() []string {
+	var dictionary []string
+
+	file, err := ioutil.ReadFile("/usr/share/dict/words")
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	dictionary = strings.Split(string(file), "\n")
+
+	return dictionary
+}
+
 // IrregularWords is a collection of English irregular words
 var IrregularWords = NewWordSet([]string{"awoken", "been", "born", "beat", "become", "begun", "bent", "beset", "bet", "bid", "bidden", "bound", "bitten", "bled", "blown", "broken", "bred", "brought", "broadcast", "built", "burnt", "burst", "bought", "cast", "caught", "chosen", "clung", "come", "cost", "crept", "cut", "dealt", "dug", "dived", "done", "drawn", "dreamt", "driven", "drunk", "eaten", "fallen", "fed", "felt", "fought", "found", "fit", "fled", "flung", "flown", "forbidden", "forgotten", "foregone", "forgiven", "forsaken", "frozen", "gotten", "given", "gone", "ground", "grown", "hung", "heard", "hidden", "hit", "held", "hurt", "kept", "knelt", "knit", "known", "laid", "led", "leapt", "learnt", "left", "lent", "let", "lain", "lighted", "lost", "made", "meant", "met", "misspelt", "mistaken", "mown", "overcome", "overdone", "overtaken", "overthrown", "paid", "pled", "proven", "put", "quit", "read", "rid", "ridden", "rung", "risen", "run", "sawn", "said", "seen", "sought", "sold", "sent", "set", "sewn", "shaken", "shaven", "shorn", "shed", "shone", "shod", "shot", "shown", "shrunk", "shut", "sung", "sunk", "sat", "slept", "slain", "slid", "slung", "slit", "smitten", "sown", "spoken", "sped", "spent", "spilt", "spun", "spit", "split", "spread", "sprung", "stood", "stolen", "stuck", "stung", "stunk", "stridden", "struck", "strung", "striven", "sworn", "swept", "swollen", "swum", "swung", "taken", "taught", "torn", "told", "thought", "thrived", "thrown", "thrust", "trodden", "understood", "upheld", "upset", "woken", "worn", "woven", "wed", "wept", "wound", "won", "withheld", "withstood", "wrung", "written"})
 
@@ -30,3 +48,6 @@ var LinkingVerbs = NewWordSet([]string{"am", "are", "were", "being", "is", "been
 
 // WeaselWords is a collection of English weasel words
 var WeaselWords = NewWordSet([]string{"many", "various", "very", "fairly", "several", "extremely", "exceedingly", "quite", "remarkably", "few", "surprisingly", "mostly", "largely", "huge", "tiny", "excellent", "interestingly", "significantly", "substantially", "clearly", "vast", "relatively", "completely"})
+
+//DictionaryWords is a colection of English words
+var DictionaryWords = NewWordSet(loadDictionary())
