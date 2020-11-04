@@ -26,7 +26,7 @@ func (w WordSet) Has(t *Token) bool {
 	return has
 }
 
-// loadDictionary
+// loadDictionary loads a file containing a dictionary
 func loadDictionary() []string {
 	var dictionary []string
 
