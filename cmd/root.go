@@ -24,10 +24,11 @@ var rootCmd = &cobra.Command{
 				os.Exit(1)
 			}
 
-			if !ReportDuplicates && !ReportWeasel && !ReportPassive {
+			if !ReportDuplicates && !ReportWeasel && !ReportPassive && !ReportMisspellings {
 				ReportDuplicates = true
 				ReportWeasel = true
 				ReportPassive = true
+				ReportMisspellings = true
 			}
 
 			parser := linter.NewParser(string(contents))
@@ -36,6 +37,7 @@ var rootCmd = &cobra.Command{
 				{Name: "Duplicate", Tokens: linter.FindDups(parser, IncludeWhitespace, IncludePunctuation), Enabled: ReportDuplicates},
 				{Name: "Weasel", Tokens: linter.FindWeasel(parser), Enabled: ReportWeasel},
 				{Name: "Passive", Tokens: linter.FindPassive(parser), Enabled: ReportPassive},
+				{Name: "Misspelling", Tokens: linter.FindMisspell(parser), Enabled: ReportMisspellings},
 			}
 			reporters.ReportStdout(reports, allWords, filePath)
 		}
@@ -51,6 +53,9 @@ var ReportPassive bool
 // ReportWeasel indicates wheter we should report weasels or not.
 var ReportWeasel bool
 
+//ReportMisspellings indicates wheter we should report misspellings or not.
+var ReportMisspellings bool
+
 // IncludeWhitespace indicates wheter we should include white spaces in duplicates.
 var IncludeWhitespace bool
 
@@ -62,6 +67,7 @@ func SetUpFlags() {
 	rootCmd.Flags().BoolVarP(&ReportPassive, "passive", "p", false, "Run passives")
 	rootCmd.Flags().BoolVarP(&ReportWeasel, "weasel", "w", false, "Run weasels")
 	rootCmd.Flags().BoolVarP(&ReportDuplicates, "duplicate", "d", false, "Run duplicates")
+	rootCmd.Flags().BoolVarP(&ReportMisspellings, "misspell", "m", false, "Run misspell")
 	rootCmd.Flags().BoolVar(&IncludePunctuation, "include-punctuation", false, "Include punctuation")
 	rootCmd.Flags().BoolVar(&IncludeWhitespace, "include-whitespace", false, "Include whitespace")
 }
