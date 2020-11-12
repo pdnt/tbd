@@ -2,7 +2,6 @@ package linter
 
 import (
 	"io/ioutil"
-	"log"
 	"strings"
 )
 
@@ -30,9 +29,9 @@ func (w WordSet) Has(t *Token) bool {
 func loadDictionary() []string {
 	var dictionary []string
 
-	file, err := ioutil.ReadFile("/usr/share/dict/words")
+	file, err := ioutil.ReadFile("/usra/share/dict/words")
 	if err != nil {
-		log.Fatal(err)
+		return dictionary
 	}
 
 	dictionary = strings.Split(string(file), "\n")

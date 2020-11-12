@@ -37,7 +37,7 @@ var rootCmd = &cobra.Command{
 				{Name: "Duplicate", Tokens: linter.FindDups(parser, IncludeWhitespace, IncludePunctuation), Enabled: ReportDuplicates},
 				{Name: "Weasel", Tokens: linter.FindWeasel(parser), Enabled: ReportWeasel},
 				{Name: "Passive", Tokens: linter.FindPassive(parser), Enabled: ReportPassive},
-				{Name: "Misspelling", Tokens: linter.FindMisspell(parser), Enabled: ReportMisspellings},
+				{Name: "Misspelling", Tokens: linter.FindMisspell(parser, linter.DictionaryWords), Enabled: ReportMisspellings},
 			}
 			reporters.ReportStdout(reports, allWords, filePath)
 		}
