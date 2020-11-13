@@ -2,7 +2,6 @@ package linter
 
 import (
 	"io/ioutil"
-	"log"
 	"strings"
 )
 
@@ -32,7 +31,7 @@ func loadDictionary() []string {
 
 	file, err := ioutil.ReadFile("/usr/share/dict/words")
 	if err != nil {
-		log.Fatal(err)
+		return dictionary
 	}
 
 	dictionary = strings.Split(string(file), "\n")
