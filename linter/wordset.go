@@ -29,7 +29,7 @@ func (w WordSet) Has(t *Token) bool {
 func loadDictionary() []string {
 	var dictionary []string
 
-	file, err := ioutil.ReadFile("/usra/share/dict/words")
+	file, err := ioutil.ReadFile("/usr/share/dict/words")
 	if err != nil {
 		return dictionary
 	}
