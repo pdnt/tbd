@@ -1,7 +1,6 @@
 package linter
 
 import (
-	"fmt"
 	"regexp"
 )
 
@@ -13,7 +12,6 @@ func FindMisspell(parser *Parser, dictionary WordSet) []Token {
 	r, _ := regexp.Compile("^[0-9]+$")
 
 	for _, token := range allTokens {
-		fmt.Printf("value: %v | kind: %v\n", token.Value, token.Kind)
 		if !r.MatchString(token.Value) && token.Kind == WordKind && !dictionary.Has(&token) {
 			misspellings = append(misspellings, token)
 		}
