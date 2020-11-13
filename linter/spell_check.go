@@ -4,6 +4,7 @@ import (
 	"regexp"
 )
 
+// FindMisspell finds mispelled words in a list of tokens
 func FindMisspell(parser *Parser, dictionary WordSet) []Token {
 	misspellings := []Token{}
 	allTokens := parser.GetTokens()
