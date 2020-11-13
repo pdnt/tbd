@@ -31,6 +31,11 @@ var rootCmd = &cobra.Command{
 				ReportMisspellings = true
 			}
 
+			if ReportMisspellings && len(linter.DictionaryWords) == 0 {
+				ReportMisspellings = false
+				fmt.Printf("\n%s Unable to find a valid dictionary to do spell checking, skipping. %s%s\n\n", reporters.Red, reporters.Red, reporters.Reset)
+			}
+
 			parser := linter.NewParser(string(contents))
 			allWords := parser.GetTokens()
 			reports := []reporters.Report{
